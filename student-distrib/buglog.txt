@@ -1,0 +1,109 @@
+=====Bug Log=====
+
+
+=====Checkpoint 3.1=====
+1. wrong address when initiating paging
+a. Collabarative working out
+b. correct the address of page_directory array. We need the dollar sign
+c. 1-2 hours
+
+2. idt error, cannot connect to the exception handler and interrupt handler
+a. Collabarative working out and also with the help of TA
+b. we write the jumptable not correctly, and there is not corresponding ordering and spaces between the interrupts and exceptions
+c. 10 hours
+
+
+=====Checkpoint 3.2=====
+1. filesystem does not work correctly, the way to handle data block is not right
+a. Mengxuan and tingou
+b. add the data block indx outside the if to make sure it just adds for 1 time
+c. 6-7 hours
+
+2. terminal and keyboard some errors when writing a char to the terminal
+a. Enyi and Yifan
+b. find out we need to update two locations in video memory, one for the char and one for the color and other changes
+c. 5-6 hours
+
+3. update cursor but cursor not goes with the contents we print to the terminal
+a. Enyi and Yifan
+b. connect current_location variable with screen_x and screen_y in lib, update the putc function in lib
+c. 2-3 hours
+
+4. backspace does not behave the natural way
+a. Enyi
+b. try to find the char on the previous line if the previous char is \n, and other special conditions like more than two \n in series
+c. 1-2 hours
+
+
+=====Checkpoint 3.3=====
+1. page fault after execute and halt
+a. collabatrative working out
+b. correct the way we storing esp,ebp values in pcb struture
+c. 5-6 hours
+
+2. open, close function use get_pcb() function and the system crash since esp, ebp values are wrong
+a. Mengxuan
+b. using get_specific_pcb() instead of get_pcb()
+c. 20 min
+
+3. warning when compiling becuase we use "0" in file descriptor table array
+a. Mengxuan
+b. writing new functions "no-function"
+c. 2-3 hours
+
+4. cur_pid does not update correctly so when we run clustered shell we may run into page fault
+a. Yifan, enyi
+b. change the structure of pcb and the logic in updating cur_pid
+c. 30min - 1 hour
+
+
+=====Checkpoint 3.4=====
+1. ctrl+L is not right. clear the terminal each time after pressing L
+a. Enyi and Mengxuan
+b. force ctrl_pressed to be UNPRESSED after successfully receiving PRESSED
+c. 10 min
+
+2. system error test having some failures 
+a. Tingou and Mengxuan
+b. do some small changes in vidmap, assembly linkage etc.
+c. 2-3 hours
+
+
+
+=====Checkpoint 3.5=====
+1. cannot write on the terminal after switching
+a. Enyi and tingou
+b. make some records before calling launch_term() so we can get out of keyboard interrupt
+
+2.putc is not working correctly when the program is running in the back.
+a.Tingou and Mengxuan
+b.write a new funciont putc_term and scroll_term and add a "has_enter" attribute in terminal structure
+  to write into the video backup memory in individual terms correctly
+c. 1 hour
+
+3.scheduling is not working and page fault
+a. collabrative working out, asking TA
+b. add "leave" "ret"; store and restore the tss.esp0 and tss.ss0 each time
+c. 7-9 hours
+
+4.memory map is not correct. fish is showing on other terminals when switching to.
+a. collabrative working out
+b. write new function for memory map
+c. 3 hours
+
+5. halt not to distinguish running term and current term
+a. yifan, tingou and mengxuan
+b. we need to distingush this by the input status, and save the running term info if it is not the current term to avoid page fault
+c. 3-4 hours
+
+5. rtc frequency is not set correctly after cat or grep.
+a. Tingou and Mengxuan
+b. rtc_open() is called when excuting these command
+c. 15min
+
+6. "cat rtc" won't have 0.5s delaty
+a. Tingou and Mengxuan 
+b. We didn't have RTC virtualized correctly -- we need to take the scheduling effect into account.
+c. 30min
+
+
